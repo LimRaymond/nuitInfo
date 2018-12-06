@@ -1,7 +1,25 @@
-var express = require('express');
-var app = express();
-var server = require('http').createServer(app);
+const express = require('express');
+const app = express();
+const server = require('http').createServer(app);
+const mongo = require('mongodb')
+const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
 
-app.use(express.static(__dirname + '/../client'));
+mongoose.Promise = global.Promise;
+
+mongoose.connect('mongodb://localhost/27017', {
+    useMongoClient: true
+});
+
+var db = mongoose.connection;
+
+//app.use(express.static(__dirname + '/../client'));
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 server.listen(8080);

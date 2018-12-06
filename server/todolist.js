@@ -4,7 +4,7 @@ mongoose.connect('mongodb://localhost/test', {
     useMongoClient: true
 });
 
-var Widget = module.exports = mongoose.model('Todolist', {
+var Task = module.exports = mongoose.model('Todolist', {
     task: String,
     versionKey: false
 });

@@ -22,7 +22,7 @@ router.post("/addTask", function(req, res){
     Task.save(function(err){
         if (err) throw err;
     });
-    res.redirect("/todoList")
+    res.status(200).send({message: "SUCCESS"});
 });
 
 router.get("/removeTask", function(req, res){
@@ -34,11 +34,7 @@ router.post("/removeTask", function(req, res){
     TaskSchema.remove({ _id: idTask}, function(err){
         if (err) throw err;
     });
-    res.redirect("/todoList");
-});
-
-router.get("/alerts", function(req,res){
-    res.redirect
+    res.status(200).send({message: "SUCCESS"});
 });
 
 router.get("/weather", function(req, res){

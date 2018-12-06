@@ -1,14 +1,20 @@
 const express = require("express");
 const router = express.Router();
+const OpenWeatherMapHelper = require('openweathermap-node');
 var TaskSchema = require('./todolist');
 var task;
+
+const helper = new OpenWeatherMapHelper({
+    APPID: "1bf8fafe66882bb705ce1b6efb3c0cae",
+    units: "metric"
+});
 
 router.get("/", function(res, req){
 
 });
 
 router.get("/todoList", function(req, res){
-
+    res.send({message: "oui"});
 });
 
 router.get("/addTask", function(req, res){
@@ -38,7 +44,34 @@ router.post("/removeTask", function(req, res){
 });
 
 router.get("/weather", function(req, res){
-
+    var longitude;
+    var lattitude;
+        helper.getCurrentWeatherByGeoCoordinates(48.58364410000001, 7.7494288, (err, currentWeather) => {
+            if(err){
+                let result = {title: "Error", content: "Invalid Coordinate"};
+                res.send({message: result});
+            }
+            else{
+                let string = JSON.stringify(currentWeather);
+                let objectValue = JSON.parse(string);
+                let temperature = objectValue['main'].temp;
+                let humidity = objectValue['main'].humidity;
+                let pressure = objectValue['main'].pressure;
+                let windSpeed = objectValue['wind'].speed;
+                let windDeg = objectValue['wind'].deg;
+                let city = objectValue.name; 
+                let result = {
+                    title: "Météo à " + city,
+                    temperature: Math.round(temperature) - 273 + "°C",
+                    humidity: humidity + "%",
+                    pressure: pressure + " pa",
+                    windSpeed: windSpeed + " km/h",
+                    windDeg: windDeg + "°"
+                };
+                console.log(currentWeather);
+                res.send({message: result});
+            }
+        });
 });
 
 router.get("/chatBot", function(req, res){

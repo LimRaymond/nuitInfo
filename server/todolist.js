@@ -5,7 +5,7 @@ mongoose.connect('mongodb://localhost/test', {
 });
 
 var Task = module.exports = mongoose.model('Todolist', {
-    task: String,
+    task: [String],
     versionKey: false
 });
 

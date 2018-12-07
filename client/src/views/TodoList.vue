@@ -13,26 +13,36 @@
         </v-btn>
       </v-toolbar>
     </v-card>
-    <list-card/>
+    <v-container>
+      <v-layout wrap>
+        <list-todo v-for="message in list" :key="message" :value="message.oui"/>
+      </v-layout>
+    </v-container>
   </v-app>
 </template>
 
+
 <script>
-import ListCard from "../components/ListCard";
+import ListTodo from "../components/ListTodo";
+import Toolbar from "../components/Toolbar";
 
 export default {
-  name: "Home",
+  name: "TodoList",
   components: {
-    ListCard
+    ListTodo,
+    Toolbar
   },
   data: () => ({
+    list: [{ oui: "Foo" }, { oui: "Bar" }],
     mydark: true,
   }),
   methods: {
     darkmod: function() {
-      if (this.mydark) this.mydark = false;
-      else this.mydark = true;
-      console.log(this.mydark);
+        if (this.mydark)
+            this.mydark = false;
+        else
+            this.mydark = true;
+        console.log(this.mydark)
     }
   }
 };

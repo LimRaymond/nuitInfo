@@ -15,7 +15,13 @@
     </v-card>
     <v-container>
       <v-layout wrap>
-        <list-todo v-for="message in list" :key="message" :value="message.oui"/>
+        <list-todo
+          v-for="message in items"
+          :key="message.id"
+          :value="message.title"
+          :content="message.task"
+          :id="message.id"
+        />
       </v-layout>
     </v-container>
   </v-app>
@@ -25,6 +31,7 @@
 <script>
 import ListTodo from "../components/ListTodo";
 import Toolbar from "../components/Toolbar";
+import Api from "../services/api.js";
 
 export default {
   name: "TodoList",
@@ -32,17 +39,33 @@ export default {
     ListTodo,
     Toolbar
   },
-  data: () => ({
-    list: [{ oui: "Foo" }, { oui: "Bar" }],
-    mydark: true,
-  }),
+  data() {
+    return {
+      list: [{ oui: "Foo" }, { oui: "Bar" }],
+      mydark: true,
+      items: []
+    };
+  },
+  mounted() {
+    Api()
+      .get("/todolist")
+      .then(response => {
+        var tmp = [];
+        for (var a in response.data.titleList) {
+          var tab = {
+            id: response.data.idInstance[a],
+            title: response.data.titleList[a],
+            task: response.data.taskList[a]
+          };
+          tmp.push(tab);
+        }
+        this.items = tmp;
+      });
+  },
   methods: {
     darkmod: function() {
-        if (this.mydark)
-            this.mydark = false;
-        else
-            this.mydark = true;
-        console.log(this.mydark)
+      if (this.mydark) this.mydark = false;
+      else this.mydark = true;
     }
   }
 };

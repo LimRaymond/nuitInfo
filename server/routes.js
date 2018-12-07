@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const OpenWeatherMapHelper = require('openweathermap-node');
+const request = require("request");
 var TaskSchema = require('./todolist');
 var task;
 
@@ -68,8 +69,32 @@ router.get("/weather", function(req, res){
                     windSpeed: windSpeed + " km/h",
                     windDeg: windDeg + "°"
                 };
-                console.log(currentWeather);
-                res.send({message: result});
+                helper.getThreeHourForecastByGeoCoordinates(48.58364410000001, 7.7494288, (err, currentWeather) => {
+                    if(err){
+                        let resultFore = {title: "Error", content: "Invalid Coordinate"};
+                        res.send({message: result});
+                    }
+                    else{
+                        let string = JSON.stringify(currentWeather.list[0]);
+                        let objectValue = JSON.parse(string);
+                        let temperature = objectValue['main'].temp;
+                        let humidity = objectValue['main'].humidity;
+                        let pressure = objectValue['main'].pressure;
+                        let windSpeed = objectValue['wind'].speed;
+                        let windDeg = objectValue['wind'].deg;
+                        let city = objectValue.name; 
+                        let resultFore = {
+                            title: result.title + " dans 3 heures",
+                            temperature: Math.round(temperature) - 273 + "°C",
+                            humidity: humidity + "%",
+                            pressure: pressure + " pa",
+                            windSpeed: windSpeed + " km/h",
+                            windDeg: windDeg + "°"
+                        };
+                        console.log(currentWeather.list[0]);
+                        res.send({Current: result, Fore: resultFore});
+                    }
+                });
             }
         });
 });

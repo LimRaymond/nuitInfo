@@ -8,7 +8,7 @@
             :class="`elevation-${hover ? 12 : 2}`"
             class="mx-auto"
             width="600"
-            @click.native="onclick()"
+            :to="{ name: 'TodoList' }"
           >
             <v-img
               aspect-ratio="2"
@@ -33,7 +33,6 @@
             :class="`elevation-${hover ? 12 : 2}`"
             class="mx-auto"
             width="600"
-            :to="{ name: 'TodoList' }"
           >
             <v-img
               aspect-ratio="2"

@@ -17,10 +17,14 @@ router.get("/", function(res, req){
 router.get("/todoList", function(req, res){
     TaskSchema.find({}, function (err, data) {
         var idInstance = [];
+        var taskList = [];
+        var titleList = []
         for (var i = 0; i < data.length; i++) {
+            titleList.push(data[i].title);
+            taskList.push(data[i].task);
             idInstance.push(data[i].userId);
         }
-        res.send({ idInstance: idInstance });
+        res.send({ titleList: titleList, taskList: taskList, idInstance: idInstance });
     });
 });
 

@@ -49,8 +49,8 @@ router.post("/addTask", function(req, res){
     });
     Task.save(function(err){
         if (err) throw err;
+	res.status(200).send({message: Task.userId});
     });
-    res.status(200).send({message: "SUCCESS"});
 });
 
 router.get("/removeTask", function(req, res){
@@ -65,10 +65,10 @@ router.post("/removeTask", function(req, res){
     res.status(200).send({message: "SUCCESS"});
 });
 
-router.get("/weather", function(req, res){
+router.post("/weather", function(req, res){
     var longitude;
     var lattitude;
-        helper.getCurrentWeatherByGeoCoordinates(48.58364410000001, 7.7494288, (err, currentWeather) => {
+        helper.getCurrentWeatherByGeoCoordinates(req.body.lat, req.body.lng, (err, currentWeather) => {
             if(err){
                 let result = {title: "Error", content: "Invalid Coordinate"};
                 res.send({message: result});
@@ -93,7 +93,7 @@ router.get("/weather", function(req, res){
                     windSpeed: windSpeed + " km/h",
                     windDeg: windDeg + "°"
                 };
-                helper.getThreeHourForecastByGeoCoordinates(48.58364410000001, 7.7494288, (err, currentWeather) => {
+                helper.getThreeHourForecastByGeoCoordinates(req.body.lat, req.body.lng, (err, currentWeather) => {
                     if(err){
                         let resultFore = {title: "Error", content: "Invalid Coordinate"};
                         res.send({message: result});

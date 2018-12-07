@@ -33,6 +33,7 @@
             :class="`elevation-${hover ? 12 : 2}`"
             class="mx-auto"
             width="600"
+            :to="{ name: 'Weather' }"
           >
             <v-img
               aspect-ratio="2"

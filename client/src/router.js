@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import TodoList from './views/TodoList.vue'
 import Home from './views/Home.vue'
 import Geo from './views/Geo.vue'
+import Weather from './views/Weather.vue'
 
 Vue.use(Router)
 
@@ -29,6 +30,12 @@ export default new Router({
       path: '/Geo',
       name: 'Geo',
       component: Geo,
+    },
+    {
+      path: '/Weather',
+      name: 'Weather',
+      component: Weather,
     }
+
   ]
 })

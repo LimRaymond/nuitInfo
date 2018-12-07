@@ -252,7 +252,7 @@ export default {
 #drawingButtons button[type="button"]
 {
     outline: 0;
-    border: 2px solid white;
+    border: 2px solid white !important;
     background-color: #1C7BF0;
     color: white;
     font-weight: bold;
@@ -271,7 +271,7 @@ export default {
 
 #drawingButtons button[type="button"]:hover, button[type="button"].active
 {
-    border-color: black;
+    border-color: black !important;
 }
 
 .colorButton
@@ -284,6 +284,7 @@ export default {
 {
     padding: 0;
     width: 40px;
+    position: relative;
 }
 
 .thicknessSmall:after
@@ -294,6 +295,10 @@ export default {
     background-color: white;
     width: 4px;
     height: 4px;
+    top: 50%;
+    left: 50%;
+    margin-top: -2px;
+    margin-left: -2px;
 }
 
 .thicknessMedium:after
@@ -304,6 +309,10 @@ export default {
     background-color: white;
     width: 8px;
     height: 8px;
+    top: 50%;
+    left: 50%;
+    margin-top: -4px;
+    margin-left: -4px;
 }
 
 .thicknessLarge:after
@@ -314,6 +323,11 @@ export default {
     background-color: white;
     width: 12px;
     height: 12px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -6px;
+    margin-left: -6px;
 }
 
 .colorButton.black

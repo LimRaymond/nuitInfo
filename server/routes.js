@@ -74,8 +74,10 @@ router.get("/weather", function(req, res){
                 res.send({message: result});
             }
             else{
+                console.log(currentWeather);
                 let string = JSON.stringify(currentWeather);
                 let objectValue = JSON.parse(string);
+                let weather = objectValue['weather'][0].main;
                 let temperature = objectValue['main'].temp;
                 let humidity = objectValue['main'].humidity;
                 let pressure = objectValue['main'].pressure;
@@ -84,6 +86,7 @@ router.get("/weather", function(req, res){
                 let city = objectValue.name; 
                 let result = {
                     title: "Météo à " + city,
+                    weather: weather,
                     temperature: Math.round(temperature) - 273 + "°C",
                     humidity: humidity + "%",
                     pressure: pressure + " pa",
@@ -98,6 +101,7 @@ router.get("/weather", function(req, res){
                     else{
                         let string = JSON.stringify(currentWeather.list[0]);
                         let objectValue = JSON.parse(string);
+                        let weather = objectValue['weather'][0].main;
                         let temperature = objectValue['main'].temp;
                         let humidity = objectValue['main'].humidity;
                         let pressure = objectValue['main'].pressure;
@@ -106,13 +110,13 @@ router.get("/weather", function(req, res){
                         let city = objectValue.name; 
                         let resultFore = {
                             title: result.title + " dans 3 heures",
+                            weather: weather,
                             temperature: Math.round(temperature) - 273 + "°C",
                             humidity: humidity + "%",
                             pressure: pressure + " pa",
                             windSpeed: windSpeed + " km/h",
                             windDeg: windDeg + "°"
                         };
-                        console.log(currentWeather.list[0]);
                         res.send({Current: result, Fore: resultFore});
                     }
                 });

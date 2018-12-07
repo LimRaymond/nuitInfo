@@ -4,10 +4,12 @@ import router from './router'
 import App from './App.vue'
 import Home from './views/Home.vue'
 import TodoList from './views/TodoList.vue'
+import Geo from './views/Geo.vue'
 
 Vue.config.productionTip = false
 
 new Vue({
+  Geo,
   router,
   TodoList,
   Home,

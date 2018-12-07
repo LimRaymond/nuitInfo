@@ -78,6 +78,7 @@
             :class="`elevation-${hover ? 12 : 2}`"
             class="mx-auto"
             width="600"
+            :to="{ name: 'Geo' }"
           >
             <v-img aspect-ratio="2" src="https://i.imgur.com/IiabxlL.jpg"></v-img>
             <v-card-title>

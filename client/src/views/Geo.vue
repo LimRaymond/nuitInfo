@@ -1,5 +1,5 @@
 <template>
-  <v-app :dark="mydark">
+  <v-app dark>
     <v-card color="grey lighten-4" flat tile>
       <v-toolbar>
         <v-toolbar-side-icon></v-toolbar-side-icon>
@@ -14,9 +14,9 @@
       </v-toolbar>
     </v-card>
     <v-container>
-      <v-layout wrap>
+      <!-- <v-layout wrap> -->
         <div id="canvasContainer">
-            <div id="map" class="top"></div>
+            <div id="map" class="top" style="width:600;height:500;"></div>
             <canvas id="drawing" width="600" height="500">Veuillez mettre à jour votre navigateur.</canvas>
         </div>
         <div id="drawingButtons">
@@ -40,7 +40,7 @@
             <button type="button" class="colorButton gray" value="gray"></button>
           </div>
         </div>
-      </v-layout>
+      <!-- </v-layout> -->
     </v-container>
   </v-app>
 </template>
@@ -59,9 +59,6 @@ export default {
     list: [{ oui: "Foo" }, { oui: "Bar" }],
     mydark: true
   }),
-  mounted: {
-
-  },
   methods: {
     darkmod: function() {
       if (this.mydark) this.mydark = false;
@@ -70,7 +67,6 @@ export default {
   }
 };
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript">
   jQuery(function() {
 
@@ -184,24 +180,24 @@ export default {
         jQuery(this).addClass('active');
     });
 
-});
-
-function loadMap(location) {
+    function loadMap(location) {
     var map = new google.maps.Map(document.getElementById('map'), {zoom: 8, center: location, disableDefaultUI: true});
     var marker = new google.maps.Marker({position: location, map: map});
-}
+    }
 
-function maPosition(position) {
-    loadMap({lat: position.coords.latitude, lng: position.coords.longitude});
-}
+    function maPosition(position) {
+        loadMap({lat: position.coords.latitude, lng: position.coords.longitude});
+    }
 
-function initMap() {
-    loadMap({lat: 48.867, lng: 2.333});
-    if (navigator.geolocation)
-        navigator.geolocation.getCurrentPosition(maPosition);
-}
+    function initMap() {
+        loadMap({lat: 48.867, lng: 2.333});
+        if (navigator.geolocation)
+            navigator.geolocation.getCurrentPosition(maPosition);
+    }
+    initMap()
+});
+
 </script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClErEp5rillN3hiEl5Hdwr1_0NbG5_6S8&callback=initMap"></script>
 
 <style>
 #canvasContainer
@@ -210,9 +206,10 @@ function initMap() {
     width: 600px;
     height: 500px;
     overflow: hidden;
-    margin-bottom: 10px;
+    margin: 20px auto;
     border: 1px solid black;
     box-sizing: border-box;
+    display: block;
 }
 
 #map
@@ -246,7 +243,13 @@ function initMap() {
     margin-bottom: 10px;
 }
 
-button[type="button"]
+#drawingButtons
+{
+    display: block;
+    text-align: center;
+}
+
+#drawingButtons button[type="button"]
 {
     outline: 0;
     border: 2px solid white;
@@ -266,7 +269,7 @@ button[type="button"]
     transition: 0.25s;
 }
 
-button[type="button"]:hover, button[type="button"].active
+#drawingButtons button[type="button"]:hover, button[type="button"].active
 {
     border-color: black;
 }

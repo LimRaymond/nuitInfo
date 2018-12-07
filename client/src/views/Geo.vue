@@ -67,137 +67,137 @@ export default {
   }
 };
 </script>
-<script type="text/javascript">
-  jQuery(function() {
+// <script type="text/javascript">
+//   jQuery(function() {
 
-    /***********************/
-    /* Liste des variables */
-    /***********************/
+//     /***********************/
+//     /* Liste des variables */
+//     /***********************/
 
-    var canvas = document.getElementById("drawing");
-    var context = canvas.getContext("2d");
-    var color = "red";
-    var thickness = 4;
+//     var canvas = document.getElementById("drawing");
+//     var context = canvas.getContext("2d");
+//     var color = "red";
+//     var thickness = 4;
 
-    /***********************/
-    /* Liste des fonctions */
-    /***********************/
+//     /***********************/
+//     /* Liste des fonctions */
+//     /***********************/
 
-    function drawLine(line) {
-        context.beginPath();
-        context.moveTo(line.fromX, line.fromY);
-        context.lineTo(line.toX, line.toY);
-        context.strokeStyle = line.color;
-        context.lineWidth = line.thickness;
-        context.lineCap = 'round';
-        context.stroke();
-        context.closePath();
-    }
+//     function drawLine(line) {
+//         context.beginPath();
+//         context.moveTo(line.fromX, line.fromY);
+//         context.lineTo(line.toX, line.toY);
+//         context.strokeStyle = line.color;
+//         context.lineWidth = line.thickness;
+//         context.lineCap = 'round';
+//         context.stroke();
+//         context.closePath();
+//     }
 
-    /************************/
-    /* Liste des évènements */
-    /************************/
+//     /************************/
+//     /* Liste des évènements */
+//     /************************/
 
-    jQuery("#drawing").on('mousedown', function(e) {
+//     jQuery("#drawing").on('mousedown', function(e) {
 
-        var prevX = e.clientX - canvas.offsetLeft + jQuery(window).scrollLeft();
-        var prevY = e.clientY - canvas.offsetTop + jQuery(window).scrollTop();
+//         var prevX = e.clientX - canvas.offsetLeft + jQuery(window).scrollLeft();
+//         var prevY = e.clientY - canvas.offsetTop + jQuery(window).scrollTop();
 
-        var line = {fromX:prevX, fromY:prevY, toX:(prevX + 0.1), toY:(prevY + 0.1), color:color, thickness:thickness};
-        drawLine(line);
+//         var line = {fromX:prevX, fromY:prevY, toX:(prevX + 0.1), toY:(prevY + 0.1), color:color, thickness:thickness};
+//         drawLine(line);
 
-        jQuery("#drawing").on('mousemove', function(e) {
+//         jQuery("#drawing").on('mousemove', function(e) {
 
-            var currX = e.clientX - canvas.offsetLeft + jQuery(window).scrollLeft();
-            var currY = e.clientY - canvas.offsetTop + jQuery(window).scrollTop();
+//             var currX = e.clientX - canvas.offsetLeft + jQuery(window).scrollLeft();
+//             var currY = e.clientY - canvas.offsetTop + jQuery(window).scrollTop();
 
-            var line = {fromX:prevX, fromY:prevY, toX:currX, toY:currY, color:color, thickness:thickness};
-            drawLine(line);
+//             var line = {fromX:prevX, fromY:prevY, toX:currX, toY:currY, color:color, thickness:thickness};
+//             drawLine(line);
 
-            prevX = currX;
-            prevY = currY;
-        });
+//             prevX = currX;
+//             prevY = currY;
+//         });
 
-    });
+//     });
 
-    jQuery("#drawing").on('touchstart', function(event) {
+//     jQuery("#drawing").on('touchstart', function(event) {
 
-        if (!event.originalEvent.touches[1]) {
+//         if (!event.originalEvent.touches[1]) {
 
-            event.preventDefault();
-            if (event.originalEvent.touches) e = event.originalEvent.touches[0];
+//             event.preventDefault();
+//             if (event.originalEvent.touches) e = event.originalEvent.touches[0];
 
-            var prevX = e.clientX - canvas.offsetLeft + jQuery(window).scrollLeft();
-            var prevY = e.clientY - canvas.offsetTop + jQuery(window).scrollTop();
+//             var prevX = e.clientX - canvas.offsetLeft + jQuery(window).scrollLeft();
+//             var prevY = e.clientY - canvas.offsetTop + jQuery(window).scrollTop();
 
-            var line = {fromX:prevX, fromY:prevY, toX:(prevX + 0.1), toY:(prevY + 0.1), color:color, thickness:thickness};
-            drawLine(line);
+//             var line = {fromX:prevX, fromY:prevY, toX:(prevX + 0.1), toY:(prevY + 0.1), color:color, thickness:thickness};
+//             drawLine(line);
 
-            jQuery("#drawing").on('touchmove', function(e) {
+//             jQuery("#drawing").on('touchmove', function(e) {
 
-                if (e.originalEvent.touches) e = e.originalEvent.touches[0];
+//                 if (e.originalEvent.touches) e = e.originalEvent.touches[0];
 
-                var currX = e.clientX - canvas.offsetLeft + jQuery(window).scrollLeft();
-                var currY = e.clientY - canvas.offsetTop + jQuery(window).scrollTop();
+//                 var currX = e.clientX - canvas.offsetLeft + jQuery(window).scrollLeft();
+//                 var currY = e.clientY - canvas.offsetTop + jQuery(window).scrollTop();
 
-                var line = {fromX:prevX, fromY:prevY, toX:currX, toY:currY, color:color, thickness:thickness};
-                drawLine(line);
+//                 var line = {fromX:prevX, fromY:prevY, toX:currX, toY:currY, color:color, thickness:thickness};
+//                 drawLine(line);
 
-                prevX = currX;
-                prevY = currY;
-            });
-        }
+//                 prevX = currX;
+//                 prevY = currY;
+//             });
+//         }
 
-    });
+//     });
 
-    jQuery('#drawing').on('mouseup mouseleave', function() {
-        jQuery("#drawing").off("mousemove");
-    });
+//     jQuery('#drawing').on('mouseup mouseleave', function() {
+//         jQuery("#drawing").off("mousemove");
+//     });
 
-    jQuery('#drawing').on('touchend', function() {
-        jQuery("#drawing").off("touchmove");
-    });
+//     jQuery('#drawing').on('touchend', function() {
+//         jQuery("#drawing").off("touchmove");
+//     });
 
-    jQuery("#clear").click(function() {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-    });
+//     jQuery("#clear").click(function() {
+//         context.clearRect(0, 0, canvas.width, canvas.height);
+//     });
 
-    jQuery("#draw").click(function() {
-        jQuery(this).toggleClass('active');
-        jQuery('#canvas').toggleClass('top');
-        jQuery('#map').toggleClass('top');
-    });
+//     jQuery("#draw").click(function() {
+//         jQuery(this).toggleClass('active');
+//         jQuery('#canvas').toggleClass('top');
+//         jQuery('#map').toggleClass('top');
+//     });
 
-    jQuery(".thicknessButton").click(function() {
-        thickness = jQuery(this).val();
-        jQuery('.thicknessButton').removeClass('active');
-        jQuery(this).addClass('active');
-    });
+//     jQuery(".thicknessButton").click(function() {
+//         thickness = jQuery(this).val();
+//         jQuery('.thicknessButton').removeClass('active');
+//         jQuery(this).addClass('active');
+//     });
 
-    jQuery(".colorButton").click(function() {
-        color = jQuery(this).val();
-        jQuery('.colorButton').removeClass('active');
-        jQuery(this).addClass('active');
-    });
+//     jQuery(".colorButton").click(function() {
+//         color = jQuery(this).val();
+//         jQuery('.colorButton').removeClass('active');
+//         jQuery(this).addClass('active');
+//     });
 
-    function loadMap(location) {
-    var map = new google.maps.Map(document.getElementById('map'), {zoom: 8, center: location, disableDefaultUI: true});
-    var marker = new google.maps.Marker({position: location, map: map});
-    }
+//     function loadMap(location) {
+//     var map = new google.maps.Map(document.getElementById('map'), {zoom: 8, center: location, disableDefaultUI: true});
+//     var marker = new google.maps.Marker({position: location, map: map});
+//     }
 
-    function maPosition(position) {
-        loadMap({lat: position.coords.latitude, lng: position.coords.longitude});
-    }
+//     function maPosition(position) {
+//         loadMap({lat: position.coords.latitude, lng: position.coords.longitude});
+//     }
 
-    function initMap() {
-        loadMap({lat: 48.867, lng: 2.333});
-        if (navigator.geolocation)
-            navigator.geolocation.getCurrentPosition(maPosition);
-    }
-    initMap()
-});
+//     function initMap() {
+//         loadMap({lat: 48.867, lng: 2.333});
+//         if (navigator.geolocation)
+//             navigator.geolocation.getCurrentPosition(maPosition);
+//     }
+//     initMap()
+// });
 
-</script>
+// </script>
 
 <style>
 #canvasContainer

@@ -26,7 +26,7 @@ export default {
     ListCard
   },
   data: () => ({
-    mydark: true,
+    mydark: true
   }),
   methods: {
     darkmod: function() {

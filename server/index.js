@@ -12,7 +12,7 @@ mongoose.connect('mongodb://localhost:27017/test', { useNewUrlParser: true }, fu
     console.log("Connected");
 });
 
-app.use(core());
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

@@ -15,7 +15,13 @@ router.get("/", function(res, req){
 });
 
 router.get("/todoList", function(req, res){
-    res.send({message: "oui"});
+    TaskSchema.find({}, function (err, data) {
+        var idInstance = [];
+        for (var i = 0; i < data.length; i++) {
+            idInstance.push(data[i].userId);
+        }
+        res.send({ idInstance: idInstance });
+    });
 });
 
 router.get("/addTask", function(req, res){
@@ -23,8 +29,19 @@ router.get("/addTask", function(req, res){
 });
 
 router.post("/addTask", function(req, res){
+    function makeid() {
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      
+        for (var i = 0; i < 5; i++)
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+      
+        return text;
+    }
     var Task = new TaskSchema({
-        task: task
+        userId: makeid(),
+        title: req.body.title,
+        task: req.body.task
     });
     Task.save(function(err){
         if (err) throw err;

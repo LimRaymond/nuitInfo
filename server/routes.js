@@ -59,7 +59,7 @@ router.get("/removeTask", function(req, res){
 
 router.post("/removeTask", function(req, res){
     let idTask = req.body.idTask;
-    TaskSchema.remove({ _id: idTask}, function(err){
+    TaskSchema.remove({ userId: idTask}, function(err){
         if (err) throw err;
     });
     res.status(200).send({message: "SUCCESS"});
@@ -125,7 +125,7 @@ router.get("/weather", function(req, res){
 });
 
 router.get("/chatBot", function(req, res){
-
+    
 });
 
 router.get("/geolocalisation", function(req,res){
